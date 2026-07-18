@@ -50,6 +50,7 @@ if (!reduceMotion) {
 }
 
 const slider = document.querySelector('[data-drag-scroll]');
+const staticPalette = window.matchMedia('(max-width: 760px)');
 let isDown = false;
 let lastX = 0;
 let lastTime = 0;
@@ -98,6 +99,7 @@ const requestSlideFrame = () => {
 };
 
 slider.addEventListener('pointerdown', (event) => {
+  if (staticPalette.matches) return;
   isDown = true;
   lastX = event.clientX;
   lastTime = performance.now();
@@ -109,7 +111,7 @@ slider.addEventListener('pointerdown', (event) => {
 });
 
 slider.addEventListener('pointermove', (event) => {
-  if (!isDown) return;
+  if (staticPalette.matches || !isDown) return;
 
   const now = performance.now();
   const movement = -(event.clientX - lastX) * 1.15;
@@ -133,6 +135,17 @@ const endDrag = () => {
 };
 slider.addEventListener('pointerup', endDrag);
 slider.addEventListener('pointercancel', endDrag);
+
+staticPalette.addEventListener('change', (event) => {
+  if (!event.matches) return;
+  isDown = false;
+  velocity = 0;
+  targetScroll = 0;
+  cancelAnimationFrame(slideFrame);
+  slideFrame = 0;
+  slider.scrollLeft = 0;
+  slider.classList.remove('dragging', 'gliding');
+});
 
 const form = document.querySelector('[data-form]');
 const formStatus = document.querySelector('[data-form-status]');

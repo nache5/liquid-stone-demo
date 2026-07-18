@@ -218,7 +218,24 @@ button { color: inherit; }
   .material-comparison { grid-template-columns: 1fr; gap: 1.2rem; margin-top: 5rem; }
   .material-comparison > div:not(.comparison-line) { justify-content: flex-start; align-items: baseline; }
   .comparison-line { width: 100%; }
-  .swatch { flex-basis: 70vw; }
+  .swatches-track {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.25rem .8rem;
+    margin-top: 3.5rem;
+    padding-inline: 5vw;
+    overflow: visible;
+    cursor: default;
+    user-select: auto;
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+    touch-action: auto;
+  }
+  .swatch { min-width: 0; flex-basis: auto; scroll-snap-align: none; }
+  .swatch-surface { aspect-ratio: 1; }
+  .swatch span { margin-top: .75rem; }
+  .swatch h3 { font-size: clamp(1rem, 4.8vw, 1.25rem); }
+  .swatch-hint { display: none; }
   .property-grid { grid-template-columns: 1fr; }
   .property-card { min-height: 250px; }
   .spaces-sticky { position: static; }
