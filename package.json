@@ -1,0 +1,10 @@
+{
+  "name": "liquid-stone",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Website one-page pentru Liquid Stone",
+  "scripts": {
+    "dev": "python3 -m http.server 4173",
+    "preview": "python3 -m http.server 4173"
+  }
+}
